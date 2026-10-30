@@ -31,7 +31,12 @@ fun DetalleLibroSection(
                     IconButton(onClick = { }) {
                         Icon(imageVector = Icons.Default.ArrowBack, contentDescription = "Regresar")
                     }
-                }
+                },
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    navigationIconContentColor = MaterialTheme.colorScheme.onPrimaryContainer
+                )
             )
         }
     ) { innerPadding ->
@@ -42,45 +47,67 @@ fun DetalleLibroSection(
                 .padding(16.dp),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Banner de Parámetro Recibido (Exacto a la infografía)
+            // Banner de Parámetro Recibido adaptado al Cyan Container
             Surface(
-                color = Color(0xFFFFF8E1),
+                color = MaterialTheme.colorScheme.primaryContainer,
                 shape = RoundedCornerShape(8.dp),
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Row(
-                    modifier = Modifier.padding(8.dp),
+                    modifier = Modifier.padding(12.dp),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    Icon(imageVector = Icons.Default.FileDownload, contentDescription = null, tint = Color(0xFFF57C00))
+                    Icon(
+                        imageVector = Icons.Default.FileDownload,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.primary
+                    )
                     Spacer(modifier = Modifier.width(8.dp))
-                    Text(text = "Parámetro recibido: ${libro.titulo}", color = Color(0xFFE65100), style = MaterialTheme.typography.bodySmall, fontWeight = FontWeight.Bold)
+                    Text(
+                        text = "Parámetro recibido: ${libro.titulo}",
+                        color = MaterialTheme.colorScheme.onPrimaryContainer,
+                        style = MaterialTheme.typography.bodySmall,
+                        fontWeight = FontWeight.Bold
+                    )
                 }
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Tarjeta miniatura del libro grande centrale
+            // Tarjeta miniatura central con el color primario (Cyan)
             Card(
                 modifier = Modifier.size(120.dp, 160.dp),
-                colors = CardDefaults.cardColors(containerColor = Color(0xFF263238))
+                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.primary)
             ) {
                 Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-                        Icon(imageVector = Icons.Default.Book, contentDescription = null, tint = Color.White, modifier = Modifier.size(40.dp))
+                        Icon(
+                            imageVector = Icons.Default.Book,
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.onPrimary,
+                            modifier = Modifier.size(40.dp)
+                        )
                         Spacer(modifier = Modifier.height(8.dp))
-                        Text(text = libro.titulo, color = Color.White, style = MaterialTheme.typography.bodySmall, fontWeight = FontWeight.Bold)
+                        Text(
+                            text = libro.titulo,
+                            color = MaterialTheme.colorScheme.onPrimary,
+                            style = MaterialTheme.typography.bodySmall,
+                            fontWeight = FontWeight.Bold
+                        )
                     }
                 }
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Datos del libro
+            // Datos del libro con fondo adaptado al tema
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color(0xFFF5F5F5), shape = RoundedCornerShape(8.dp))
+                    .background(
+                        MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.5f),
+                        shape = RoundedCornerShape(8.dp)
+                    )
                     .padding(16.dp)
             ) {
                 InfoRow(label = "Nombre:", value = libro.titulo)
@@ -94,14 +121,22 @@ fun DetalleLibroSection(
 
             Spacer(modifier = Modifier.weight(1f))
 
-            // Botón Naranja de Reservar (Como el diseño)
+            // Botón de Reservar principal usando el color primario (Cyan)
             Button(
                 onClick = onReservarClick,
                 enabled = libro.disponible,
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFF57C00)),
-                modifier = Modifier.fillMaxWidth().height(50.dp)
+                colors = ButtonDefaults.buttonColors(
+                    containerColor = MaterialTheme.colorScheme.primary
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
             ) {
-                Text(text = "Reservar Libro", color = Color.White, fontWeight = FontWeight.Bold)
+                Text(
+                    text = "Reservar Libro",
+                    color = MaterialTheme.colorScheme.onPrimary,
+                    fontWeight = FontWeight.Bold
+                )
             }
         }
     }

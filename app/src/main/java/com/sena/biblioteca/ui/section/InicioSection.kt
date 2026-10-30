@@ -1,6 +1,6 @@
 package com.example.biblioteca.ui.section
 
-import androidx.compose.foundation.BorderStroke // <-- IMPORTACIÓN NECESARIA
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
@@ -25,12 +25,16 @@ fun InicioSection(
     onVerCatalogoClick: () -> Unit,
     onVerReservasClick: () -> Unit
 ) {
+    // Usamos los colores del tema para un degradado suave y elegante en tonos Cyan/Teal
+    val cyanLight = MaterialTheme.colorScheme.primaryContainer
+    val cyanSurface = MaterialTheme.colorScheme.background
+
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(
                 Brush.verticalGradient(
-                    colors = listOf(Color(0xFFEDE7F6), Color(0xFFF7F5FC), Color.White)
+                    colors = listOf(cyanLight.copy(alpha = 0.4f), cyanSurface, Color.White)
                 )
             )
             .padding(24.dp),
@@ -41,25 +45,25 @@ fun InicioSection(
             verticalArrangement = Arrangement.Center,
             modifier = Modifier.fillMaxWidth()
         ) {
-            // Insignia superior animada/estilizada
+            // Insignia superior con el color primario (Cyan)
             Box(
                 modifier = Modifier
                     .size(110.dp)
                     .clip(CircleShape)
-                    .background(Color(0xFF512DA8).copy(alpha = 0.1f)),
+                    .background(MaterialTheme.colorScheme.primary.copy(alpha = 0.12f)),
                 contentAlignment = Alignment.Center
             ) {
                 Box(
                     modifier = Modifier
                         .size(80.dp)
                         .clip(CircleShape)
-                        .background(Color(0xFF512DA8)),
+                        .background(MaterialTheme.colorScheme.primary),
                     contentAlignment = Alignment.Center
                 ) {
                     Icon(
                         imageVector = Icons.Default.LocalLibrary,
                         contentDescription = null,
-                        tint = Color.White,
+                        tint = MaterialTheme.colorScheme.onPrimary,
                         modifier = Modifier.size(40.dp)
                     )
                 }
@@ -71,7 +75,7 @@ fun InicioSection(
                 text = "Biblioteca Digital",
                 style = MaterialTheme.typography.headlineMedium.copy(
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFF311B92)
+                    color = MaterialTheme.colorScheme.primary
                 ),
                 textAlign = TextAlign.Center
             )
@@ -81,51 +85,51 @@ fun InicioSection(
             Text(
                 text = "Explora nuestro catálogo, gestiona tus préstamos y disfruta de la lectura.",
                 style = MaterialTheme.typography.bodyMedium,
-                color = Color(0xFF5E5C6C),
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 textAlign = TextAlign.Center,
                 modifier = Modifier.padding(horizontal = 16.dp)
             )
 
             Spacer(modifier = Modifier.height(48.dp))
 
-            // Botón principal moderno con sombra y esquinas redondeadas
+            // Botón principal moderno en Cyan (primary)
             Button(
                 onClick = onVerCatalogoClick,
-                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFF512DA8)),
+                colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary),
                 shape = RoundedCornerShape(16.dp),
                 elevation = ButtonDefaults.buttonElevation(defaultElevation = 6.dp),
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp)
             ) {
-                Icon(imageVector = Icons.Default.LocalLibrary, contentDescription = null, tint = Color.White)
+                Icon(imageVector = Icons.Default.LocalLibrary, contentDescription = null, tint = MaterialTheme.colorScheme.onPrimary)
                 Spacer(modifier = Modifier.width(12.dp))
                 Text(
                     text = "Explorar Catálogo",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color.White
+                    color = MaterialTheme.colorScheme.onPrimary
                 )
             }
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Botón secundario estilizado
+            // Botón secundario estilizado combinado con Teal/Secondary
             OutlinedButton(
                 onClick = onVerReservasClick,
                 shape = RoundedCornerShape(16.dp),
-                border = BorderStroke(1.5.dp, Color(0xFF512DA8)),
+                border = BorderStroke(1.5.dp, MaterialTheme.colorScheme.secondary),
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(56.dp)
             ) {
-                Icon(imageVector = Icons.Default.BookmarkAdded, contentDescription = null, tint = Color(0xFF512DA8))
+                Icon(imageVector = Icons.Default.BookmarkAdded, contentDescription = null, tint = MaterialTheme.colorScheme.secondary)
                 Spacer(modifier = Modifier.width(12.dp))
                 Text(
                     text = "Ver Mis Reservas",
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color(0xFF512DA8)
+                    color = MaterialTheme.colorScheme.secondary
                 )
             }
         }

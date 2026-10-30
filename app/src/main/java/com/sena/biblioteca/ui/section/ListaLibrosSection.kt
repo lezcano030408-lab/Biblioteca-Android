@@ -26,13 +26,17 @@ fun ListaLibrosSection(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Mis Libros", fontWeight = FontWeight.Bold) },
+                title = { Text("Catálogo de Libros", fontWeight = FontWeight.Bold) },
                 navigationIcon = {
                     IconButton(onClick = { }) {
                         Icon(imageVector = Icons.Default.Menu, contentDescription = "Menu")
                     }
                 },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.surfaceVariant)
+                colors = TopAppBarDefaults.topAppBarColors(
+                    containerColor = MaterialTheme.colorScheme.secondaryContainer,
+                    titleContentColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                    navigationIconContentColor = MaterialTheme.colorScheme.onSecondaryContainer
+                )
             )
         }
     ) { innerPadding ->
@@ -45,7 +49,7 @@ fun ListaLibrosSection(
             Text(
                 text = "Elige un libro para ver más detalles.",
                 style = MaterialTheme.typography.bodyMedium,
-                color = Color.Gray
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
             Spacer(modifier = Modifier.height(12.dp))
 
@@ -56,7 +60,7 @@ fun ListaLibrosSection(
                     Card(
                         modifier = Modifier.fillMaxWidth(),
                         elevation = CardDefaults.cardElevation(2.dp),
-                        colors = CardDefaults.cardColors(containerColor = Color.White)
+                        colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface)
                     ) {
                         Row(
                             modifier = Modifier
@@ -64,29 +68,50 @@ fun ListaLibrosSection(
                                 .padding(12.dp),
                             verticalAlignment = Alignment.CenterVertically
                         ) {
-                            // Miniatura simulada del libro
+                            // Miniatura del libro usando el color primario (Cyan)
                             Box(
                                 modifier = Modifier
                                     .size(50.dp, 65.dp)
-                                    .background(Color(0xFF263238), shape = RoundedCornerShape(4.dp)),
+                                    .background(MaterialTheme.colorScheme.primary, shape = RoundedCornerShape(4.dp)),
                                 contentAlignment = Alignment.Center
                             ) {
-                                Icon(imageVector = Icons.Default.Book, contentDescription = null, tint = Color.White)
+                                Icon(
+                                    imageVector = Icons.Default.Book,
+                                    contentDescription = null,
+                                    tint = MaterialTheme.colorScheme.onPrimary
+                                )
                             }
 
                             Spacer(modifier = Modifier.width(16.dp))
 
                             Column(modifier = Modifier.weight(1f)) {
-                                Text(text = libro.titulo, fontWeight = FontWeight.Bold, style = MaterialTheme.typography.bodyLarge)
-                                Text(text = libro.autor, style = MaterialTheme.typography.bodySmall, color = Color.Gray)
+                                Text(
+                                    text = libro.titulo,
+                                    fontWeight = FontWeight.Bold,
+                                    style = MaterialTheme.typography.bodyLarge,
+                                    color = MaterialTheme.colorScheme.onSurface
+                                )
+                                Text(
+                                    text = libro.autor,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                                )
                             }
 
+                            // Botón de detalle usando el color secundario (Teal) que combina con el Cyan
                             Button(
                                 onClick = { onLibroClick(libro.id) },
-                                colors = ButtonDefaults.buttonColors(containerColor = Color(0xFFEDE7F6)),
+                                colors = ButtonDefaults.buttonColors(
+                                    containerColor = MaterialTheme.colorScheme.secondaryContainer
+                                ),
                                 contentPadding = PaddingValues(horizontal = 12.dp, vertical = 6.dp)
                             ) {
-                                Text(text = "Ver Detalle", color = Color(0xFF512DA8), style = MaterialTheme.typography.bodySmall)
+                                Text(
+                                    text = "Ver Detalle",
+                                    color = MaterialTheme.colorScheme.onSecondaryContainer,
+                                    style = MaterialTheme.typography.bodySmall,
+                                    fontWeight = FontWeight.Bold
+                                )
                             }
                         }
                     }
